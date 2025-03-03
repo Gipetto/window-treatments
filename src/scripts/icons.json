@@ -1,0 +1,65 @@
+{
+  "html5": {
+    "name": "HTML",
+    "set": "cib",
+    "icon": "html5",
+    "aliases": ["html", "htm"],
+    "width": null,
+    "height": null,
+    "body": null
+  },
+  "java": {
+    "name": "Java",
+    "set": "cib",
+    "icon": "java",
+    "aliases": ["jar"],
+    "width": null,
+    "height": null,
+    "body": null
+  },
+  "javascript": {
+    "name": "Javascript",
+    "set": "cib",
+    "icon": "javascript",
+    "aliases": ["js", "mjs", "cjs"],
+    "width": null,
+    "height": null,
+    "body": null
+  },
+  "php": {
+    "name": "PHP",
+    "set": "cib",
+    "icon": "php",
+    "aliases": ["phar"],
+    "width": null,
+    "height": null,
+    "body": null
+  },
+  "ruby": {
+    "name": "Ruby",
+    "set": "cib",
+    "icon": "ruby",
+    "aliases": ["rb"],
+    "width": null,
+    "height": null,
+    "body": null
+  },
+  "react": {
+    "name": "React",
+    "set": "cib",
+    "icon": "react",
+    "aliases": ["jsx"],
+    "width": null,
+    "height": null,
+    "body": null
+  },
+  "typescript": {
+    "name": "Typescript",
+    "set": "cib",
+    "icon": "typescript",
+    "aliases": ["ts", "mts", "cts"],
+    "width": null,
+    "height": null,
+    "body": null
+  }
+}

@@ -1,22 +1,6 @@
 <script lang="ts">
-  import { onMount, type Component } from "svelte"
+  /* eslint-disable svelte/no-at-html-tags */
   import iconSet from "../icons/icons.json" assert { type: "json" }
-
-  // @todo - put this in a store so it only gets processed once
-  interface Icons {
-    [k:string]: {
-      name: string
-      file: string
-      component: string
-    }
-  }
-  const icons = Object.entries(iconSet).reduce((acc, data) => {
-    data[0].split(":").forEach((ext) => {
-      acc[ext] = data[1]
-    })
-
-    return acc
-  }, {} as Icons)
 
   interface Props {
     icon?: string
@@ -26,17 +10,22 @@
     icon
   }: Props = $props()
 
-  let Svg: Component | undefined = $state(undefined)
-  onMount(async () => {
-    if (icon) {
-      Svg = (await import(`../icons/${icons[icon].component}`)).default
+  // svelte-ignore non_reactive_update
+  let _icon = iconSet[icon]
+  if (_icon && _icon.alias) {
+    _icon = {
+      ...iconSet[_icon.alias]
     }
-  })
+  }
 </script>
 
-{#if Svg}
+{#if _icon}
   <span class="logo">
-    <Svg />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox={`0 0 ${_icon.width} ${_icon.height}`}
+    >{@html _icon.body}</svg>
   </span>
 {/if}
 

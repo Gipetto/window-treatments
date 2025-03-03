@@ -28,7 +28,7 @@
         Cow.php
       </Tab>
       <Tab
-        icon="ts"
+        icon="typescript"
         forId="typescript"
         onclick={() => console.log("ts")}
       >
