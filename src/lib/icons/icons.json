@@ -1,0 +1,37 @@
+{
+  "html:htm": {
+    "name": "HTML",
+    "file": "cib/html5.svg",
+    "component": "cib/html5.svelte"
+  },
+  "java:jar": {
+    "name": "Java",
+    "file": "cib/java.svg",
+    "component": "cib/java.svelte"
+  },
+  "js:mjs:cjs": {
+    "name": "Javascript", 
+    "file": "cib/javascript.svg",
+    "component": "cib/javascript.svelte"
+  },
+  "php:phar": {
+    "name": "PHP",
+    "file": "cib/php.svg",
+    "component": "cib/php.svelte"
+  },
+  "ruby:rb": {
+    "name": "Ruby",
+    "file": "cib/ruby.svg",
+    "component": "cib/ruby.svelte"
+  },
+  "react:jsx": {
+    "name": "React",
+    "file": "cib/react.svg",
+    "component": "cib/react.svelte"
+  },
+  "ts:mts:cts": {
+    "name": "Typescript",
+    "file": "cib/typescript.svg",
+    "component": "cib/typescript.svelte"
+  }
+}
