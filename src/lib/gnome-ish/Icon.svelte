@@ -1,9 +1,21 @@
-<script lang="ts">
-  /* eslint-disable svelte/no-at-html-tags */
+<script lang="ts" module>
   import iconSet from "../icons/icons.json" assert { type: "json" }
 
+  type IconKey = keyof typeof iconSet
+  type Icon = {
+    name: string
+    set: string
+    icon: string
+    aliases: string[]
+    width: number
+    height: number
+    body: string
+  }
+</script>
+<script lang="ts">
+  /* eslint-disable svelte/no-at-html-tags */
   interface Props {
-    icon?: string
+    icon?: IconKey | undefined
   }
 
   const {
@@ -11,10 +23,14 @@
   }: Props = $props()
 
   // svelte-ignore non_reactive_update
-  let _icon = iconSet[icon]
-  if (_icon && _icon.alias) {
-    _icon = {
-      ...iconSet[_icon.alias]
+  let _icon: Icon | undefined
+
+  if (icon && iconSet[icon]) {
+    if ("alias" in iconSet[icon]) {
+      const alias = iconSet[icon].alias as IconKey
+      _icon = { ...iconSet[alias] } as Icon
+    } else {
+      _icon = iconSet[icon]
     }
   }
 </script>

@@ -7,7 +7,7 @@
 
   interface Props {
     forId?: string
-    icon?: string
+    icon?: IconKey | undefined
     onclick?: (id: ActiveTabParam) => void
     children: Snippet
   }
@@ -36,7 +36,7 @@
   aria-expanded={isActive}
 >
   <span class="inner">
-    <Icon {icon} />
+    <Icon icon={icon} />
     <span class="title">{@render children?.()}</span>
   </span>
 </a>
