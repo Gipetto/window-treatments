@@ -69,7 +69,6 @@ console.info(foo)
 
 <style lang="scss">
   :root {
-    --wt-gap: 2rem;
     --wt-grid-type: auto-fill;
     --wt-border-radius: 0.75rem;
     --wt-border-radius-inner: 0.5rem;
@@ -86,6 +85,9 @@ console.info(foo)
     --wt-color-tab-active-bg: rgb(0 0 0);
     --wt-color-tab-inactive-bg:var(--wt-color-header-bg);
     --wt-color-tab-hover-bg: rgb(50 50 50);
+    --wt-color-border-inner: rgb(100 100 100);
+    --wt-color-border-outer: rgb(50 50 50);
+    --wt-color-window-shadow: 0.2rem 0.2rem 0.2rem rgb(0 0 0 / 0.25);
   }
 
   .window {
@@ -96,11 +98,10 @@ console.info(foo)
     overflow: clip;
     background: var(--wt-color-tab-active-bg);
     border-radius: var(--wt-border-radius);
-    // @todo - parameterize these
     box-shadow:
-      0 0 0 1px rgb(100, 100, 100),
-      0 0 0 2px rgb(50, 50, 50),
-      0.2rem 0.2rem 0.2rem rgb(0 0 0 / 0.25);
+      0 0 0 1px var(--wt-color-border-inner),
+      0 0 0 2px var(--wt-color-border-outer),
+      var(--wt-color-window-shadow);
 
     header {
       display: flex;
