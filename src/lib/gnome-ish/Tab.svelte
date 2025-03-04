@@ -31,17 +31,20 @@
     if (e.dataTransfer) {
       e.dataTransfer.setData("text/plain", forId as string)
       e.dataTransfer.dropEffect = "move"
+      e.dataTransfer.effectAllowed = "move"
 
-      const el = e.target as HTMLElement
-      el.classList.add(TAB_DRAGGING_CLASS)
-
+      tabEl.classList.add(TAB_DRAGGING_CLASS)
       tabStore.draggingTab = forId
     }
+
+    tabEl.setAttribute("aria-grabbed", "true")
   }
 
-  const handleDragEnd = (e: DragEvent) => {
-    const el = e.target as HTMLElement
-    el.classList.remove(TAB_DRAGGING_CLASS)
+  const handleDragEnd = (_e: DragEvent) => {
+    tabEl.classList.remove(TAB_DRAGGING_CLASS)
+    tabEl.setAttribute("aria-grabbed", "true")
+    tabStore.activeTab = forId
+    tabStore.draggingTab = undefined
   }
 
   const handleDragEnter = (e: DragEvent) => {
@@ -56,44 +59,41 @@
 
   const handleDrop = (e: DragEvent) => {
     e.preventDefault()
-    const data = e.dataTransfer?.getData("text/plain")
-    if (data && tabStore.draggingTab !== data) {
-      tabStore.activeTab = data
-    }
+    // @todo - remove if we don't find a use for it
   }
 
   const handleDragOver = (e: MouseEvent) => {
     e.preventDefault()
 
-    const draggedEl = document.getElementById(`wt-tab-${tabStore.draggingTab}`) as HTMLElement
-    if (draggedEl.id === tabEl.id) {
-      return
-    }
+    requestAnimationFrame(() => {
+      const draggedEl = document.getElementById(`wt-tab-${tabStore.draggingTab}`) as HTMLElement
+      if (!draggedEl || draggedEl.id === tabEl.id) {
+        return
+      }
 
-    mousePosX = e.clientX
-    const rect = tabEl.getBoundingClientRect()
-    const lDist = mousePosX - rect.left
-    const rDist = rect.right - mousePosX
+      mousePosX = e.clientX
+      const rect = tabEl.getBoundingClientRect()
+      const lDist = mousePosX - rect.left
+      const rDist = rect.right - mousePosX
 
-    if (lDist < 0 || rDist < 0) {
-      return
-    }
+      if (lDist < 0 || rDist < 0) {
+        return
+      }
 
-    const closestEdge = lDist < rDist ? "left" : "right"
+      const closestEdge = lDist < rDist ? "left" : "right"
 
-    const tabs = tabEl.closest(".tabs")
-    if (!tabs) {
-      // @todo - complain loudly?
-      return
-    }
+      const tabs = tabEl.closest(".tabs")
+      if (!tabs) {
+        // @todo - complain loudly?
+        return
+      }
 
-    if (!tabEl.nextSibling && closestEdge === "right") {
-      tabs.appendChild(draggedEl)
-    } else if (tabEl.nextSibling && closestEdge === "right") {
-      tabs.insertBefore(draggedEl, tabEl.nextSibling)
-    } else {
-      tabs.insertBefore(draggedEl, tabEl)
-    }
+      if (tabEl.nextElementSibling && closestEdge === "right") {
+        tabs.insertBefore(draggedEl, tabEl.nextElementSibling)
+      } else {
+        tabs.insertBefore(draggedEl, tabEl)
+      }
+    })
   }
 </script>
 
@@ -111,6 +111,7 @@
   }}
   role="tab"
   aria-expanded={isActive}
+  aria-grabbed={false}
   draggable={true}
   ondragstart={handleDragStart}
   ondragend={handleDragEnd}
@@ -139,7 +140,9 @@
     text-decoration: none;
     cursor: default;
     overflow: hidden;
-    transition: all ease 0.5s;
+    // enable hardware acceleration
+    transform: translate3d(0, 0, 0);
+    // transition: transform ease 0.5s;
 
     &:not(.active) {
       --bg-color: var(--wt-color-tab-inactive-bg);

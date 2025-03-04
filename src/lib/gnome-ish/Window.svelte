@@ -4,6 +4,8 @@
   import { TabState, setActiveTabContext } from "./TabStore.svelte.js"
   import Tab from "./Tab.svelte"
 
+  let tabsEl: HTMLElement
+
   interface Props {
     activeTab?: string
   }
@@ -17,22 +19,12 @@
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault()
-
-    if (e.dataTransfer) {
-      e.dataTransfer.dropEffect = "move"
-    }
-
-    const el = e.target as HTMLElement
-    if (el) {
-      el.classList.add("wt-tab-drag-over")
-    }
+    tabsEl.classList.add("wt-tabs-drag-over")
   }
 
   const handleDrop = (e: DragEvent) => {
     e.preventDefault()
-    const forId = e.dataTransfer?.getData("text/plain")
-    tabStore.activeTab = forId
-    tabStore.draggingTab = undefined
+    // @todo - remove if we don't find a use for it
   }
 </script>
 
@@ -45,6 +37,7 @@
       ondragover={handleDragOver}
       ondrop={handleDrop}
       aria-label="Draggable Tabs"
+      bind:this={tabsEl}
     >
       <Tab
         icon="php"
