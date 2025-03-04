@@ -1,8 +1,9 @@
 <script lang="ts" module>
+  /* eslint-disable svelte/no-at-html-tags */
   import iconSet from "../icons/icons.json" assert { type: "json" }
 
-  type IconKey = keyof typeof iconSet
-  type Icon = {
+  export type IconKey = keyof typeof iconSet
+  export type Icon = {
     name: string
     set: string
     icon: string
@@ -13,7 +14,6 @@
   }
 </script>
 <script lang="ts">
-  /* eslint-disable svelte/no-at-html-tags */
   interface Props {
     icon?: IconKey | undefined
   }

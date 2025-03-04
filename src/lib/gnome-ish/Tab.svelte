@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Icon from "./Icon.svelte"
+  import Icon, { type IconKey } from "./Icon.svelte"
   import { type Snippet } from "svelte"
   import { getActiveTabContext, type ActiveTabParam } from "./TabStore.svelte.js"
 
