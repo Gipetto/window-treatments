@@ -30,22 +30,7 @@
 
   const handleDrop = (e: DragEvent) => {
     e.preventDefault()
-
     const forId = e.dataTransfer?.getData("text/plain")
-
-    const _el = e.target as HTMLElement
-    const el = _el.classList.contains("tab") ? _el : _el.closest(".tab")
-    const draggedEl = document.getElementById(`wt-tab-${forId}`)
-
-    if (el && draggedEl) {
-      const tabs = el.closest(".tabs")
-      if (!el.nextSibling) {
-          el.closest(".tabs")!.appendChild(draggedEl)
-      } else if (el.nextSibling && tabs) {
-        tabs.insertBefore(draggedEl, el.nextSibling)
-      }
-    }
-
     tabStore.activeTab = forId
     tabStore.draggingTab = undefined
   }
