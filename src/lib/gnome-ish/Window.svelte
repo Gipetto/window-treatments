@@ -1,7 +1,7 @@
 <script lang="ts">
   import Controls from "./Controls.svelte"
   import Pane from "./Pane.svelte"
-  import { ActiveTab, setActiveTabContext } from "./TabStore.svelte.js"
+  import { TabState, setActiveTabContext } from "./TabStore.svelte.js"
   import Tab from "./Tab.svelte"
 
   interface Props {
@@ -12,14 +12,55 @@
     activeTab
   }: Props = $props()
 
-  const tabStore = new ActiveTab(activeTab)
+  const tabStore = new TabState(activeTab)
   setActiveTabContext(tabStore)
+
+  const handleDragOver = (e: DragEvent) => {
+    e.preventDefault()
+
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = "move"
+    }
+
+    const el = e.target as HTMLElement
+    if (el) {
+      el.classList.add("wt-tab-drag-over")
+    }
+  }
+
+  const handleDrop = (e: DragEvent) => {
+    e.preventDefault()
+
+    const forId = e.dataTransfer?.getData("text/plain")
+
+    const _el = e.target as HTMLElement
+    const el = _el.classList.contains("tab") ? _el : _el.closest(".tab")
+    const draggedEl = document.getElementById(`wt-tab-${forId}`)
+
+    if (el && draggedEl) {
+      const tabs = el.closest(".tabs")
+      if (!el.nextSibling) {
+          el.closest(".tabs")!.appendChild(draggedEl)
+      } else if (el.nextSibling && tabs) {
+        tabs.insertBefore(draggedEl, el.nextSibling)
+      }
+    }
+
+    tabStore.activeTab = forId
+    tabStore.draggingTab = undefined
+  }
 </script>
 
 <div class="window">
   <header>
     <Controls />
-    <div class="tabs" role="tablist">
+    <div
+      class="tabs"
+      role="application"
+      ondragover={handleDragOver}
+      ondrop={handleDrop}
+      aria-label="Draggable Tabs"
+    >
       <Tab
         icon="php"
         forId="php"

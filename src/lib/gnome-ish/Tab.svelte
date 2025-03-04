@@ -3,6 +3,11 @@
   import { type Snippet } from "svelte"
   import { getActiveTabContext, type ActiveTabParam } from "./TabStore.svelte.js"
 
+  const TAB_DRAGGING_CLASS = "wt-tab-dragging"
+  const TAB_DRAGGING_OVER_CLASS = "wt-tab-dragging-over"
+
+  let tabEl: HTMLElement
+
   const tabStore = getActiveTabContext()
 
   interface Props {
@@ -20,12 +25,84 @@
   }: Props = $props()
 
   const isActive = $derived(tabStore.is(forId))
+  let mousePosX = $state(0)
+
+  const handleDragStart = (e: DragEvent) => {
+    if (e.dataTransfer) {
+      e.dataTransfer.setData("text/plain", forId as string)
+      e.dataTransfer.dropEffect = "move"
+
+      const el = e.target as HTMLElement
+      el.classList.add(TAB_DRAGGING_CLASS)
+
+      tabStore.draggingTab = forId
+    }
+  }
+
+  const handleDragEnd = (e: DragEvent) => {
+    const el = e.target as HTMLElement
+    el.classList.remove(TAB_DRAGGING_CLASS)
+  }
+
+  const handleDragEnter = (e: DragEvent) => {
+    e.preventDefault()
+    tabEl.classList.add(TAB_DRAGGING_OVER_CLASS)
+  }
+
+  const handleDragLeave = (e: DragEvent) => {
+    e.preventDefault()
+    tabEl?.classList.add(TAB_DRAGGING_OVER_CLASS)
+  }
+
+  const handleDrop = (e: DragEvent) => {
+    e.preventDefault()
+    const data = e.dataTransfer?.getData("text/plain")
+    if (data && tabStore.draggingTab !== data) {
+      tabStore.activeTab = data
+    }
+  }
+
+  const handleDragOver = (e: MouseEvent) => {
+    e.preventDefault()
+
+    const draggedEl = document.getElementById(`wt-tab-${tabStore.draggingTab}`) as HTMLElement
+    if (draggedEl.id === tabEl.id) {
+      return
+    }
+
+    mousePosX = e.clientX
+    const rect = tabEl.getBoundingClientRect()
+    const lDist = mousePosX - rect.left
+    const rDist = rect.right - mousePosX
+
+    if (lDist < 0 || rDist < 0) {
+      return
+    }
+
+    const closestEdge = lDist < rDist ? "left" : "right"
+
+    const tabs = tabEl.closest(".tabs")
+    if (!tabs) {
+      // @todo - complain loudly?
+      return
+    }
+
+    if (!tabEl.nextSibling && closestEdge === "right") {
+      tabs.appendChild(draggedEl)
+    } else if (tabEl.nextSibling && closestEdge === "right") {
+      tabs.insertBefore(draggedEl, tabEl.nextSibling)
+    } else {
+      tabs.insertBefore(draggedEl, tabEl)
+    }
+  }
 </script>
 
 <a
+  id={`wt-tab-${forId}`}
   class="tab"
   class:active={isActive}
-  href="#a"
+  class:wt-tab-dragging={false}
+  href={`#${forId}`}
   onclick={(e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -34,6 +111,14 @@
   }}
   role="tab"
   aria-expanded={isActive}
+  draggable={true}
+  ondragstart={handleDragStart}
+  ondragend={handleDragEnd}
+  ondragenter={handleDragEnter}
+  ondragleave={handleDragLeave}
+  ondrop={handleDrop}
+  ondragover={handleDragOver}
+  bind:this={tabEl}
 >
   <span class="inner">
     <Icon icon={icon} />
@@ -43,7 +128,6 @@
 
 <style lang="scss">
   .tab {
-    position: relative;
     --bg-color: var(--wt-color-tab-active-bg);
 
     position: relative;
@@ -54,6 +138,8 @@
     z-index: 100;
     text-decoration: none;
     cursor: default;
+    overflow: hidden;
+    transition: all ease 0.5s;
 
     &:not(.active) {
       --bg-color: var(--wt-color-tab-inactive-bg);
@@ -106,6 +192,19 @@
       padding: 0.5rem 1rem 0.5rem 1rem;
       border-start-start-radius: var(--wt-border-radius-inner);
       border-start-end-radius: var(--wt-border-radius-inner);
+    }
+
+    * {
+      // prevent child elements from getting drag events
+      pointer-events: none;
+    }
+
+    &.wt-tab-dragging {
+      >*,
+      &::before,
+      &::after {
+        opacity: 0.25;
+      }
     }
   }
 </style>
