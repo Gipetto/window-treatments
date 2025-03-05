@@ -22,14 +22,14 @@
   display: flex;
   gap: 0.5rem;
   flex-direction: row;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1.1rem 1rem 0 1rem;
   background-color: var(--wt-color-header-bg);
 
   .control {
     content: "\00a0";
     border-radius: 100%;
-    width: 0.85rem;
-    height: 0.85rem;
+    width: 0.8rem;
+    height: 0.8rem;
     background-color: transparent;
 
     &:nth-child(1) {
