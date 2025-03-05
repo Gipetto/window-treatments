@@ -22,6 +22,7 @@ class TabState {
   maximized = $state(false)
   shaded = $state(false)
   closed = $state(false)
+  height: string | undefined = $state(undefined)
 
   constructor({
     name = undefined,
@@ -30,7 +31,7 @@ class TabState {
     maximized = false,
     shaded = false
   }:Props) {
-    this.appName = `wt-${name}`
+    this.appName = `wt-${name?.replace(" ", "-").toLowerCase()}`
     this.activeTab = activeTab
     this.#sortable = sortable
     this.maximized = maximized

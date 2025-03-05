@@ -2,6 +2,7 @@
   import { getActiveTabContext } from "./TabStore.svelte.js"
 
   const tabStore = getActiveTabContext()
+  let appWindow: HTMLElement
 
   const handleMaximize = () => {
     tabStore.maximized = !tabStore.maximized
@@ -11,7 +12,17 @@
   }
 
   const handleShade = () => {
+    if (!appWindow) {
+      appWindow = document.querySelector(`#${tabStore.appName}`) as HTMLElement
+    }
     tabStore.shaded = !tabStore.shaded
+
+    if (tabStore.shaded) {
+      tabStore.height = appWindow.style.height
+      appWindow.style.height = "auto"
+    } else {
+      appWindow.style.height = tabStore.height ?? "auto"
+    }
   }
 
   const handleClose = () => {

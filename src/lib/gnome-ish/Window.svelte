@@ -84,6 +84,7 @@
 
 <section
   class="window"
+  id={tabStore.appName}
   class:maximized={isMaximized}
   class:shaded={isShaded}
   class:closed={isClosed}
@@ -189,7 +190,7 @@ console.info(foo)
     line-height: 1.1rem;
     white-space: preserve-breaks;
     display: block;
-    overflow: clip;
+    overflow: hidden;
     background: var(--wt-color-tab-active-bg);
     border-radius: var(--wt-border-radius);
     box-shadow:
@@ -197,10 +198,16 @@ console.info(foo)
       0 0 0 2px var(--wt-color-border-outer),
       var(--wt-color-window-shadow);
 
+    resize: both;
+    max-height: fit-content;
+
     &.maximized {
       position: absolute;
       inset: 0;
       border-radius: 0;
+      resize: none;
+      width: auto !important;
+      height: auto !important;
     }
 
     &.shaded {
