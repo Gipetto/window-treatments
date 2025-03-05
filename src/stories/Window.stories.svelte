@@ -1,6 +1,5 @@
 <script module lang="ts">
   import { defineMeta } from "@storybook/addon-svelte-csf"
-  // import { fn } from "@storybook/test"
   import Window from "$lib/gnome-ish/Window.svelte"
 
   const { Story } = defineMeta({
@@ -13,7 +12,10 @@
       }
     },
     args: {
-      activeTab: "typescript"
+      activeTab: "typescript",
+      controls: true,
+      name: "Window Sample",
+      ariaLabel: "Window Sample"
     }
   })
 </script>
