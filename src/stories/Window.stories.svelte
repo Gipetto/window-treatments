@@ -18,7 +18,8 @@
       ariaLabel: "Window Sample",
       sortable: true,
       shaded: false,
-      maximized: false
+      maximized: false,
+      closed: false
     }
   })
 </script>
@@ -29,7 +30,9 @@
       {#key args.sortable}
         {#key args.maximized}
           {#key args.shaded}
-            <Window {...args} />
+            {#key args.closed}
+              <Window {...args} />
+            {/key}
           {/key}
         {/key}
       {/key}

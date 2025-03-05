@@ -1,12 +1,6 @@
 <script lang="ts">
   import { getActiveTabContext } from "./TabStore.svelte.js"
 
-  const onClick = (e: MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    console.info("This element is for show only")
-  }
-
   const tabStore = getActiveTabContext()
 
   const handleMaximize = () => {
@@ -19,9 +13,15 @@
   const handleShade = () => {
     tabStore.shaded = !tabStore.shaded
   }
+
+  const handleClose = () => {
+    tabStore.closed = true
+    tabStore.shaded = false
+    tabStore.maximized = false
+  }
 </script>
 <div class="controls header-bg" role="presentation">
-  <a class="control" onclick={onClick} href="#close" aria-hidden="true" tabIndex="-1">
+  <a class="control" onclick={handleClose} href="#close" aria-hidden="true" tabIndex="-1">
     <span class="sr-only">Close</span>
   </a>
   <a class="control" onclick={handleShade} href="#window-shade" aria-hidden="true" tabIndex="-1">

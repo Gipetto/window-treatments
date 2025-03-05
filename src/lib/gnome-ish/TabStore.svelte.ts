@@ -7,6 +7,7 @@ interface Props {
   sortable?: boolean
   maximized?: boolean
   shaded?: boolean
+  closed?: boolean
 }
 
 class TabState {
@@ -20,6 +21,7 @@ class TabState {
 
   maximized = $state(false)
   shaded = $state(false)
+  closed = $state(false)
 
   constructor({
     name = undefined,

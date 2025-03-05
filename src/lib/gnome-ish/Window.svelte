@@ -15,6 +15,7 @@
     sortable?: boolean
     maximized?: boolean
     shaded?: boolean
+    closed?: boolean
   }
 
   const {
@@ -24,6 +25,7 @@
     sortable = true,
     maximized = false,
     shaded = false,
+    closed = false,
     activeTab
   }: Props = $props()
 
@@ -32,12 +34,14 @@
     activeTab,
     sortable,
     maximized,
-    shaded
+    shaded,
+    closed
   })
   setActiveTabContext(tabStore)
 
   const isMaximized = $derived(tabStore.maximized)
   const isShaded = $derived(tabStore.shaded)
+  const isClosed = $derived(tabStore.closed)
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault()
@@ -82,6 +86,7 @@
   class="window"
   class:maximized={isMaximized}
   class:shaded={isShaded}
+  class:closed={isClosed}
   data-name={tabStore.appName}
   aria-label={ariaLabel}
 >
@@ -202,6 +207,10 @@ console.info(foo)
       .panes {
         display: none;
       }
+    }
+
+    &.closed {
+      display: none;
     }
 
     header {
