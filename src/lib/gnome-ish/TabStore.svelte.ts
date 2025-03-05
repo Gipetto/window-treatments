@@ -4,6 +4,7 @@ type TabStateParam = string | undefined
 interface Props {
   name: TabStateParam
   activeTab: TabStateParam
+  sortable?: boolean
 }
 
 class TabState {
@@ -11,13 +12,16 @@ class TabState {
   activeTab: TabStateParam = $state()
   draggingTab: TabStateParam = $state()
   tabFocus: number = $state(0)
+  #sortable: boolean
 
   constructor({
     name = undefined,
-    activeTab = undefined
+    activeTab = undefined,
+    sortable = true
   }:Props) {
     this.appName = `wt-${name}`
     this.activeTab = activeTab
+    this.#sortable = sortable
   }
 
   is(id: TabStateParam) {
@@ -26,6 +30,10 @@ class TabState {
 
   get isDragging() {
     return this.draggingTab !== undefined
+  }
+
+  get sortable() {
+    return this.#sortable
   }
 }
 

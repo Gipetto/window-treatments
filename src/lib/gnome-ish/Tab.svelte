@@ -110,13 +110,13 @@
   aria-selected={isActive}
   aria-grabbed={false}
   aria-controls={`${tabStore.appName}-panels-${forId}`}
-  draggable={true}
-  ondragstart={handleDragStart}
-  ondragend={handleDragEnd}
-  ondragenter={handleDragEnter}
-  ondragleave={handleDragLeave}
-  ondrop={handleDrop}
-  ondragover={handleDragOver}
+  draggable={tabStore.sortable ? true : false}
+  ondragstart={tabStore.sortable ? handleDragStart : undefined}
+  ondragend={tabStore.sortable ? handleDragEnd : undefined}
+  ondragenter={tabStore.sortable ? handleDragEnter : undefined}
+  ondragleave={tabStore.sortable ? handleDragLeave : undefined}
+  ondrop={tabStore.sortable ? handleDrop : undefined}
+  ondragover={tabStore.sortable ? handleDragOver : undefined}
   bind:this={tabEl}
 >
   <span class="inner-wrap">

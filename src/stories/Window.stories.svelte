@@ -15,7 +15,8 @@
       activeTab: "typescript",
       controls: true,
       name: "Window Sample",
-      ariaLabel: "Window Sample"
+      ariaLabel: "Window Sample",
+      sortable: true
     }
   })
 </script>
@@ -23,7 +24,9 @@
 <Story name="Primary">
   {#snippet children(args)}
     {#key args.activeTab}
-      <Window {...args} />
+      {#key args.sortable}
+        <Window {...args} />
+      {/key}
     {/key}
   {/snippet}
 </Story>

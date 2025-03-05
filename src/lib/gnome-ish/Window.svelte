@@ -12,18 +12,21 @@
     controls?: boolean
     ariaLabel?: string
     activeTab?: string
+    sortable?: boolean
   }
 
   const {
     name = "window-tab-group",
     controls = true,
     ariaLabel = "Code",
+    sortable = true,
     activeTab
   }: Props = $props()
 
   const tabStore = new TabState({
     name,
-    activeTab
+    activeTab,
+    sortable
   })
   setActiveTabContext(tabStore)
 
@@ -38,7 +41,7 @@
   }
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    const tabs = tabsEl.querySelectorAll(":scope > .tabs > [role='tab']")
+    const tabs = tabsEl.querySelectorAll(":scope > .tabs > [role='tab']") as NodeListOf<HTMLElement>
 
     if (["ArrowRight", "ArrowLeft"].includes(e.key)) {
       tabs[tabStore.tabFocus].setAttribute("tabindex", "-1")
@@ -77,15 +80,15 @@
     {/if}
     <nav
       role="application"
-      ondragover={handleDragOver}
-      ondrop={handleDrop}
+      ondragover={tabStore.sortable ? handleDragOver : undefined}
+      ondrop={tabStore.sortable ? handleDrop : undefined}
       bind:this={tabsEl}
     >
       <!-- svelte-ignore a11y_interactive_supports_focus -->
       <div
         class="tabs"
         role="tablist"
-        aria-label="Draggable Tabs"
+        aria-label="Tabs"
         aria-orientation="horizontal"
         aria-multiselectable="false"
         onkeydown={handleKeyDown}
