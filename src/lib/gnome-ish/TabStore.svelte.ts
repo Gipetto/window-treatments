@@ -5,23 +5,34 @@ interface Props {
   name: TabStateParam
   activeTab: TabStateParam
   sortable?: boolean
+  maximized?: boolean
+  shaded?: boolean
 }
 
 class TabState {
   appName: TabStateParam = $state()
+
   activeTab: TabStateParam = $state()
-  draggingTab: TabStateParam = $state()
-  tabFocus: number = $state(0)
+
   #sortable: boolean
+  draggingTab: TabStateParam = $state()
+  tabFocus = $state(0)
+
+  maximized = $state(false)
+  shaded = $state(false)
 
   constructor({
     name = undefined,
     activeTab = undefined,
-    sortable = true
+    sortable = true,
+    maximized = false,
+    shaded = false
   }:Props) {
     this.appName = `wt-${name}`
     this.activeTab = activeTab
     this.#sortable = sortable
+    this.maximized = maximized
+    this.shaded = shaded
   }
 
   is(id: TabStateParam) {

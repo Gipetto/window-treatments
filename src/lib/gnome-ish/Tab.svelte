@@ -103,6 +103,7 @@
     e.preventDefault()
     e.stopPropagation()
     tabStore.activeTab = forId
+    tabStore.shaded = false
     onclick(forId)
   }}
   role="tab"

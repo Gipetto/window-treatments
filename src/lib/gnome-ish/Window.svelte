@@ -13,6 +13,8 @@
     ariaLabel?: string
     activeTab?: string
     sortable?: boolean
+    maximized?: boolean
+    shaded?: boolean
   }
 
   const {
@@ -20,15 +22,22 @@
     controls = true,
     ariaLabel = "Code",
     sortable = true,
+    maximized = false,
+    shaded = false,
     activeTab
   }: Props = $props()
 
   const tabStore = new TabState({
     name,
     activeTab,
-    sortable
+    sortable,
+    maximized,
+    shaded
   })
   setActiveTabContext(tabStore)
+
+  const isMaximized = $derived(tabStore.maximized)
+  const isShaded = $derived(tabStore.shaded)
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault()
@@ -71,6 +80,8 @@
 
 <section
   class="window"
+  class:maximized={isMaximized}
+  class:shaded={isShaded}
   data-name={tabStore.appName}
   aria-label={ariaLabel}
 >
@@ -180,6 +191,18 @@ console.info(foo)
       0 0 0 1px var(--wt-color-border-inner),
       0 0 0 2px var(--wt-color-border-outer),
       var(--wt-color-window-shadow);
+
+    &.maximized {
+      position: absolute;
+      inset: 0;
+      border-radius: 0;
+    }
+
+    &.shaded {
+      .panes {
+        display: none;
+      }
+    }
 
     header {
       display: flex;

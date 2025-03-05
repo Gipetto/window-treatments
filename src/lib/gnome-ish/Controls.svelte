@@ -1,18 +1,33 @@
 <script lang="ts">
+  import { getActiveTabContext } from "./TabStore.svelte.js"
+
   const onClick = (e: MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     console.info("This element is for show only")
+  }
+
+  const tabStore = getActiveTabContext()
+
+  const handleMaximize = () => {
+    tabStore.maximized = !tabStore.maximized
+    if (tabStore.maximized) {
+      tabStore.shaded = false
+    }
+  }
+
+  const handleShade = () => {
+    tabStore.shaded = !tabStore.shaded
   }
 </script>
 <div class="controls header-bg" role="presentation">
   <a class="control" onclick={onClick} href="#close" aria-hidden="true" tabIndex="-1">
     <span class="sr-only">Close</span>
   </a>
-  <a class="control" onclick={onClick} href="#window-shade" aria-hidden="true" tabIndex="-1">
+  <a class="control" onclick={handleShade} href="#window-shade" aria-hidden="true" tabIndex="-1">
     <span class="sr-only">Window Shade</span>
   </a>
-  <a class="control" onclick={onClick} href="#maximize" aria-hidden="true" tabIndex="-1">
+  <a class="control" onclick={handleMaximize} href="#maximize" aria-hidden="true" tabIndex="-1">
     <span class="sr-only">Maximize</span>
   </a>
 </div>

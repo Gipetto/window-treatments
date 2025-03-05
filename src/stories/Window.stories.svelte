@@ -16,7 +16,9 @@
       controls: true,
       name: "Window Sample",
       ariaLabel: "Window Sample",
-      sortable: true
+      sortable: true,
+      shaded: false,
+      maximized: false
     }
   })
 </script>
@@ -25,7 +27,11 @@
   {#snippet children(args)}
     {#key args.activeTab}
       {#key args.sortable}
-        <Window {...args} />
+        {#key args.maximized}
+          {#key args.shaded}
+            <Window {...args} />
+          {/key}
+        {/key}
       {/key}
     {/key}
   {/snippet}
