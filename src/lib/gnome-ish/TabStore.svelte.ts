@@ -1,13 +1,22 @@
 import { getContext, setContext } from "svelte"
 
 type TabStateParam = string | undefined
+interface Props {
+  name: TabStateParam
+  activeTab: TabStateParam
+}
 
 class TabState {
+  name: TabStateParam = $state()
   state: TabStateParam = $state()
   dragState: TabStateParam = $state()
 
-  constructor(v: TabStateParam = undefined) {
-    this.state = v
+  constructor({
+    name = undefined,
+    activeTab = undefined
+  }:Props) {
+    this.name = `wt-${name}`
+    this.state = activeTab
   }
 
   set activeTab(id: TabStateParam) {
@@ -32,6 +41,14 @@ class TabState {
 
   get isDragging() {
     return this.dragState !== undefined
+  }
+
+  set appName(name: TabStateParam) {
+    this.name = name
+  }
+
+  get appName() {
+    return this.name
   }
 }
 

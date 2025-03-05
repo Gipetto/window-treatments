@@ -7,14 +7,19 @@
   let tabsEl: HTMLElement
 
   interface Props {
+    name?: string
     activeTab?: string
   }
 
   const {
+    name = "window-tab-group",
     activeTab
   }: Props = $props()
 
-  const tabStore = new TabState(activeTab)
+  const tabStore = new TabState({
+    name,
+    activeTab
+  })
   setActiveTabContext(tabStore)
 
   const handleDragOver = (e: DragEvent) => {
@@ -28,7 +33,7 @@
   }
 </script>
 
-<div class="window">
+<div class="window" data-name={tabStore.appName}>
   <header>
     <Controls />
     <div

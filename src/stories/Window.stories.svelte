@@ -3,8 +3,6 @@
   // import { fn } from "@storybook/test"
   import Window from "$lib/gnome-ish/Window.svelte"
 
-  // let activeTab = $state("php")
-
   const { Story } = defineMeta({
     component: Window,
     title: "Gnome-Ish/Window",
@@ -13,6 +11,9 @@
         control: "select",
         options: ["php", "typescript", "html"]
       }
+    },
+    args: {
+      activeTab: "typescript"
     }
   })
 </script>
