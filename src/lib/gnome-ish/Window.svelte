@@ -60,8 +60,9 @@
   }
 
   onMount(() => {
-    // const tabs = tabsEl.querySelectorAll(":scope > .tabs > [role='tab']")
-    // let tabFocus = 0
+    const tabs = Array.from(tabsEl.querySelectorAll(":scope > .tabs > [role='tab']"))
+    const _activeTabIndex = tabs.findIndex((el) => el.classList.contains("active"))
+    tabStore.tabFocus = _activeTabIndex
   })
 </script>
 
