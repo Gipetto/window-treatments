@@ -1,5 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte"
+  import { getActiveTabContext } from "./TabStore.svelte.js"
+
+  const tabStore = getActiveTabContext()
 
   interface Props {
     id?: string
@@ -14,10 +17,12 @@
   }: Props = $props()
 </script>
 <div
-  id={id}
+  id={`${tabStore.appName}-panels-${id}`}
   class="code"
   class:active={active}
   role="tabpanel"
+  hidden={!active}
+  tabIndex={0}
 ><div>
   <code>
 {@render children?.()}

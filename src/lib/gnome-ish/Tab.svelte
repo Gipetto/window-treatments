@@ -13,6 +13,7 @@
   interface Props {
     forId?: string
     icon?: IconKey | undefined
+    tabIndex?: number
     onclick?: (id: ActiveTabParam) => void
     children: Snippet
   }
@@ -66,7 +67,7 @@
     e.preventDefault()
 
     requestAnimationFrame(() => {
-      const draggedEl = document.getElementById(`wt-tab-${tabStore.draggingTab}`) as HTMLElement
+      const draggedEl = document.getElementById(`${tabStore.appName}-tab-${tabStore.draggingTab}`) as HTMLElement
       if (!draggedEl || draggedEl.id === tabEl.id) {
         return
       }
@@ -81,24 +82,19 @@
       }
 
       const closestEdge = lDist < rDist ? "left" : "right"
-
       const tabs = tabEl.closest(".tabs")
-      if (!tabs) {
-        // @todo - complain loudly?
-        return
-      }
 
       if (tabEl.nextElementSibling && closestEdge === "right") {
-        tabs.insertBefore(draggedEl, tabEl.nextElementSibling)
+        tabs?.insertBefore(draggedEl, tabEl.nextElementSibling)
       } else {
-        tabs.insertBefore(draggedEl, tabEl)
+        tabs?.insertBefore(draggedEl, tabEl)
       }
     })
   }
 </script>
 
 <a
-  id={`wt-tab-${forId}`}
+  id={`${tabStore.appName}-tab-${forId}`}
   class="tab"
   class:active={isActive}
   class:wt-tab-dragging={false}
@@ -110,8 +106,10 @@
     onclick(forId)
   }}
   role="tab"
-  aria-expanded={isActive}
+  tabindex={isActive ? 0 : -1}
+  aria-selected={isActive}
   aria-grabbed={false}
+  aria-controls={`${tabStore.appName}-panels-${forId}`}
   draggable={true}
   ondragstart={handleDragStart}
   ondragend={handleDragEnd}
@@ -121,9 +119,11 @@
   ondragover={handleDragOver}
   bind:this={tabEl}
 >
-  <span class="inner">
-    <Icon icon={icon} />
-    <span class="title">{@render children?.()}</span>
+  <span class="inner-wrap">
+    <span class="inner">
+      <Icon icon={icon} />
+      <span class="title">{@render children?.()}</span>
+    </span>
   </span>
 </a>
 
@@ -142,17 +142,25 @@
     overflow: hidden;
     // enable hardware acceleration
     transform: translate3d(0, 0, 0);
-    // transition: transform ease 0.5s;
 
     &:not(.active) {
       --bg-color: var(--wt-color-tab-inactive-bg);
       z-index: 0;
 
-      &:hover {
+      &:hover,
+      &:focus {
         --bg-color: var(--wt-color-tab-hover-bg);
         cursor: pointer;
         text-decoration: underline;
         z-index: 99;
+      }
+    }
+
+    &:focus,
+    &.active {
+      outline: none;
+      .inner {
+        border-color: var(--wt-color-tab-border-focus) !important;
       }
     }
 
@@ -184,17 +192,23 @@
         -1px 4px 0 0 var(--bg-color);
     }
 
-    .inner {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: var(--bg-color);
+    .inner-wrap {
+      display: inline-block;
+      overflow: clip;
       margin-block-start: 0.6rem;
-      padding: 0.5rem 1rem 0.5rem 1rem;
       border-start-start-radius: var(--wt-border-radius-inner);
       border-start-end-radius: var(--wt-border-radius-inner);
+
+      .inner {
+        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        border-top: 2px solid transparent;
+      }
     }
 
     * {
