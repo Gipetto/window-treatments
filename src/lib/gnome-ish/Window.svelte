@@ -235,7 +235,7 @@ console.info(foo)
         flex-direction: row;
         width: 100%;
         background-color: var(--wt-color-header-bg);
-        overflow: clip;
+        overflow: hidden;
 
         & > :last-child {
           flex-grow: 2;

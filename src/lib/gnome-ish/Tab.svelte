@@ -141,6 +141,7 @@
     text-decoration: none;
     cursor: default;
     overflow: hidden;
+    min-width: fit-content;
     // enable hardware acceleration
     transform: translate3d(0, 0, 0);
 
@@ -194,7 +195,7 @@
     }
 
     .inner-wrap {
-      display: inline-block;
+      display: block;
       overflow: clip;
       margin-block-start: 0.6rem;
       border-start-start-radius: var(--wt-border-radius-inner);
@@ -205,10 +206,15 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+        flex-shrink: 0;
         align-items: center;
         gap: 0.5rem;
         padding: 0.5rem 1rem 0.5rem 1rem;
         border-top: 2px solid transparent;
+
+        * {
+          flex-shrink: 0;
+        }
       }
     }
 
