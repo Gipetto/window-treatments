@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/blocks"
+import icons from "../lib/icons/icons.json"
+
+<Meta title="Docs/About" />
+
+<div>
+  # Window Treatments
+
+  Window treatments is a faux-window library for Svelte.
+
+  It is unopinionated about the formatting of the tab content. If you want syntax highlighting then pre-format the content before passing it in to the Window pane.
+
+  ## Features
+
+  - Multiple tabs
+  - Drag & drop reordering of tabs
+  - Window controls
+    - Resizable windows
+    - Window shade
+    - Close window
+  - Accessibility (per web standards)
+    - Tab-key in to tabs list
+    - Arrow keys to cycle through tabs
+    - Return key to select tab
+
+  ## TODO
+
+  - Finalize API for passing data
+    - Composability vs. passing complex object
+  - Abstract out drag & drop functionality for re-use
+  - Multiple Themes: Theming strategy is still up in the air
+    - Create light and dark variants
+    - Create "lickable" old-school OS X theme
+  - Mobile re-ordering of tabs: It kinda works, but it clunky
+  - Constrain tab previews to header when dragging
+  - Scroll tab list on small screens (or fall back to vertical tab list?)
+  - Line numbers? A syntax highlighting library will do this, so maybe its not a feature we need?
+  - Convert Platinum theme that exists as a React experiment
+    - Standardize outer window layout or allow it to exist as a separate set of components? 
+    - The OS 9 HIG has a lot going on.
+  - Tests
+
+</div>
+
+<style>
+{`
+
+`}
+</style>
