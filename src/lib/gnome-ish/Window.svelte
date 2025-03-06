@@ -131,6 +131,7 @@
         >
           index.html
         </Tab>
+        <div class="space" role="none" tabindex="-1"></div>
       </div>
     </nav>
   </header>
@@ -139,23 +140,68 @@
     id={`${tabStore.appName}-panels`}
   >
     <Pane id="php" active={tabStore.is("php") || tabStore.is(undefined)}>
-&lt;php
-  $foo = "bar";
-  echo $foo;
+{`
+<?php
+  // Example from: https://gipetto.github.io/CowSay/
+
+  use CowSay\\Cow;
+
+  $bessie = new Cow("Hello, Farm!");
+
+  // store the output in a variable
+  $output = $bessie->say();
+  echo $output;
+
+  // or just echo the object for direct output
+  echo $bessie;
+`.trim()}
     </Pane>
     <Pane id="typescript" active={tabStore.is("typescript")}>
-"use strict"
+{`
+const handleDragStart = (e: DragEvent) => {
+  if (e.dataTransfer) {
+    e.dataTransfer.setData("text/plain", forId as string)
+    e.dataTransfer.dropEffect = "move"
+    e.dataTransfer.effectAllowed = "move"
 
-let foo = "bar"
-console.info(foo)
+    tabEl.classList.add(TAB_DRAGGING_CLASS)
+    tabStore.draggingTab = forId
+  }
+
+  tabEl.setAttribute("aria-grabbed", "true")
+}
+
+const handleDragEnd = (_e: DragEvent) => {
+  tabEl.classList.remove(TAB_DRAGGING_CLASS)
+  tabEl.setAttribute("aria-grabbed", "true")
+  tabStore.activeTab = forId
+  tabStore.draggingTab = undefined
+}
+`.trim()}
     </Pane>
     <Pane id="html" active={tabStore.is("html")}>
-&lt;html>
-  &lt;head>&lt;/head>
-  &lt;body>
-    &lt;foo>bar&lt;/foo>
-  &lt;/body>
-&lt;/html>
+{`
+<html>
+  <head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Page Title</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Section Title</h2>
+        <p>Content</p>
+      </section>
+    </main>
+    <footer>
+      <p>@copy; Foo</p>
+    </footer>
+  </body>
+</html>
+`.trim()}
     </Pane>
   </div>
 </section>
@@ -232,6 +278,10 @@ console.info(foo)
         flex-direction: row;
         background-color: var(--wt-color-header-bg);
         overflow: hidden;
+
+        & > :last-child {
+          flex-grow: 2;
+        }
       }
     }
   }

@@ -29,7 +29,6 @@
   let mousePosX = $state(0)
 
   const handleDragStart = (e: DragEvent) => {
-    console.log(e)
     if (e.dataTransfer) {
       e.dataTransfer.setData("text/plain", forId as string)
       e.dataTransfer.dropEffect = "move"
@@ -135,7 +134,7 @@
 
     position: relative;
     padding-inline: 0.5rem;
-    margin-right: -0.85rem;
+    margin-inline: -0.5rem;
     background-color: transparent;
     z-index: 100;
     text-decoration: none;
@@ -225,8 +224,8 @@
       &::before,
       &::after {
         opacity: 0.25;
+        cursor: move;
       }
-      cursor: move;
     }
   }
 </style>
