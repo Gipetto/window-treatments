@@ -1,65 +1,200 @@
 {
+  "applescript": {
+    "name": "Applescript",
+    "set": "cib",
+    "icon": "apple",
+    "aliases": ["scpt"]
+  },
+  "bbcode": {
+    "name": "BBCode",
+    "set": "ph",
+    "icon": "brackets-square-bold",
+    "aliases": []
+  },
+  "c": {
+    "name": "C",
+    "set": "cib",
+    "icon": "c",
+    "aliases": []
+  },
+  "code": {
+    "name": "Markup",
+    "set": "garden",
+    "icon": "markup-stroke-12",
+    "aliases": ["markup", "xml", "latex", "basic", "logo", "cobol", "caml", "ocaml", "r", "objective-c", "objectivec", "tcl"]
+  },
+  "coffeescript": {
+    "name": "CoffeeScript",
+    "set": "cib",
+    "icon": "coffeescript",
+    "aliases": ["coffee"]
+  },
+  "cplusplus": {
+    "name": "C++",
+    "set": "cib",
+    "icon": "cplusplus",
+    "aliases": ["c++"]
+  },
+  "css": {
+    "name": "CSS",
+    "set": "cib",
+    "icon": "css3-shiled",
+    "aliases": ["stylesheet"]
+  },
+  "dart": {
+    "name": "Dart",
+    "set": "fa6-brands",
+    "icon": "dart-lang",
+    "aliases": []
+  },
+  "erlang": {
+    "name": "Erlang",
+    "set": "devicon-plain",
+    "icon": "erlang",
+    "aliases": ["erl"]
+  },
+  "haskell": {
+    "name": "Haksell",
+    "set": "cib",
+    "icon": "haskell",
+    "aliases": ["hs", "lhs"]
+  },
   "html5": {
     "name": "HTML",
     "set": "cib",
     "icon": "html5",
-    "aliases": ["html", "htm"],
-    "width": null,
-    "height": null,
-    "body": null
+    "aliases": ["html", "htm"]
   },
   "java": {
     "name": "Java",
     "set": "cib",
     "icon": "java",
-    "aliases": ["jar"],
-    "width": null,
-    "height": null,
-    "body": null
+    "aliases": ["jar"]
   },
   "javascript": {
     "name": "Javascript",
     "set": "cib",
     "icon": "javascript",
-    "aliases": ["js", "mjs", "cjs"],
-    "width": null,
-    "height": null,
-    "body": null
+    "aliases": ["js", "mjs", "cjs", "ecmascript"]
+  },
+  "json": {
+    "name": "JSON",
+    "set": "si",
+    "icon": "json-fill",
+    "aliases": []
+  },
+  "less": {
+    "name": "Less",
+    "set": "cib",
+    "icon": "less",
+    "aliases": []
+  },
+  "markdown": {
+    "name": "Markdown",
+    "set": "cib",
+    "icon": "markdown",
+    "aliases": ["md"]
+  },
+  "perl": {
+    "name": "PHP",
+    "set": "simple-icons",
+    "icon": "perl",
+    "aliases": ["pl"]
   },
   "php": {
     "name": "PHP",
     "set": "cib",
     "icon": "php",
-    "aliases": ["phar"],
-    "width": null,
-    "height": null,
-    "body": null
+    "aliases": ["phar", "phtml", "phps", "hack"]
   },
-  "ruby": {
-    "name": "Ruby",
+  "powershell": {
+    "name": "PowerShell",
     "set": "cib",
-    "icon": "ruby",
-    "aliases": ["rb"],
-    "width": null,
-    "height": null,
-    "body": null
+    "icon": "powershell",
+    "aliases": ["ps1"]
+  },  
+  "python": {
+    "name": "PowerShell",
+    "set": "cib",
+    "icon": "python",
+    "aliases": ["py"]
   },
   "react": {
     "name": "React",
     "set": "cib",
     "icon": "react",
-    "aliases": ["jsx"],
-    "width": null,
-    "height": null,
-    "body": null
+    "aliases": ["jsx", "nextjs"]
+  },
+  "ruby": {
+    "name": "Ruby",
+    "set": "cib",
+    "icon": "ruby",
+    "aliases": ["rb"]
+  },
+  "rust": {
+    "name": "Rust",
+    "set": "cib",
+    "icon": "rust",
+    "aliases": ["rs"]
+  },
+  "sass": {
+    "name": "Sass",
+    "set": "cib",
+    "icon": "sass",
+    "aliases": ["scss"]
+  },
+  "scala": {
+    "name": "Scala",
+    "set": "cib",
+    "icon": "scala",
+    "aliases": []
+  },
+  "shell": {
+    "name": "Shell",
+    "set": "qlementine-icons",
+    "icon": "file-script-16",
+    "aliases": ["bash", "zsh", "script", "fish", "csh"]
+  },
+  "sql": {
+    "name": "SQL",
+    "set": "gravity-ui",
+    "icon": "abbr-sql",
+    "aliases": ["mysql", "postgresql", "sqlite"]
+  },
+  "svelte": {
+    "name": "Svelte",
+    "set": "cib",
+    "icon": "svelte",
+    "aliases": ["svelte.ts", "svelte.js"]
+  },
+  "swift": {
+    "name": "Swift",
+    "set": "devicon-plain",
+    "icon": "swift",
+    "aliases": []
   },
   "typescript": {
     "name": "Typescript",
     "set": "cib",
     "icon": "typescript",
-    "aliases": ["ts", "mts", "cts"],
-    "width": null,
-    "height": null,
-    "body": null
+    "aliases": ["ts", "mts", "cts"]
+  },
+  "visualbasic": {
+    "name": "Visual Basic",
+    "set": "devicon-plain",
+    "icon": "visualbasic",
+    "aliases": ["cls", "vb"]
+  },
+  "wiki": {
+    "name": "Wiki Text",
+    "set": "ooui",
+    "icon": "wiki-text",
+    "aliases": ["wikitext"]
+  },
+  "yaml": {
+    "name": "YAML",
+    "set": "humbleicons",
+    "icon": "exclamation",
+    "aliases": ["yml"]
   }
 }
