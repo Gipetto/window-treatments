@@ -29,6 +29,7 @@
   let mousePosX = $state(0)
 
   const handleDragStart = (e: DragEvent) => {
+    console.log(e)
     if (e.dataTransfer) {
       e.dataTransfer.setData("text/plain", forId as string)
       e.dataTransfer.dropEffect = "move"
@@ -93,19 +94,11 @@
   }
 </script>
 
-<a
+<span
   id={`${tabStore.appName}-tab-${forId}`}
   class="tab"
   class:active={isActive}
   class:wt-tab-dragging={false}
-  href={`#${forId}`}
-  onclick={(e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    tabStore.activeTab = forId
-    tabStore.shaded = false
-    onclick(forId)
-  }}
   role="tab"
   tabindex={isActive ? 0 : -1}
   aria-selected={isActive}
@@ -120,13 +113,21 @@
   ondragover={tabStore.sortable ? handleDragOver : undefined}
   bind:this={tabEl}
 >
-  <span class="inner-wrap">
-    <span class="inner">
+  <span class="inner">
+    <button
+      onclick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        tabStore.activeTab = forId
+        tabStore.shaded = false
+        onclick(forId)
+      }}
+    >
       <Icon icon={icon} />
       <span class="title">{@render children?.()}</span>
-    </span>
+    </button>
   </span>
-</a>
+</span>
 
 <style lang="scss">
   .tab {
@@ -135,13 +136,11 @@
     position: relative;
     padding-inline: 0.5rem;
     margin-right: -0.85rem;
-    color: var(--wt-text-color);
     background-color: transparent;
     z-index: 100;
     text-decoration: none;
     cursor: default;
     overflow: hidden;
-    min-width: fit-content;
     // enable hardware acceleration
     transform: translate3d(0, 0, 0);
 
@@ -194,33 +193,31 @@
         -1px 4px 0 0 var(--bg-color);
     }
 
-    .inner-wrap {
+    .inner {
       display: block;
       overflow: clip;
       margin-block-start: 0.6rem;
       border-start-start-radius: var(--wt-border-radius-inner);
       border-start-end-radius: var(--wt-border-radius-inner);
 
-      .inner {
+      button {
+        color: var(--wt-text-color);
         background-color: var(--bg-color);
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        flex-shrink: 0;
         align-items: center;
         gap: 0.5rem;
+        border: 0;
+        padding: 0;
         padding: 0.5rem 1rem 0.5rem 1rem;
         border-top: 2px solid transparent;
+        cursor: pointer;
 
-        * {
-          flex-shrink: 0;
+        &:hover {
+          text-decoration: underline;
         }
       }
-    }
-
-    * {
-      // prevent child elements from getting drag events
-      pointer-events: none;
     }
 
     &.wt-tab-dragging {
@@ -229,6 +226,7 @@
       &::after {
         opacity: 0.25;
       }
+      cursor: move;
     }
   }
 </style>

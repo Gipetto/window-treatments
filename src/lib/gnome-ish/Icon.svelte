@@ -36,7 +36,7 @@
 </script>
 
 {#if _icon}
-  <span class="logo">
+  <span class="icon">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -46,12 +46,11 @@
 {/if}
 
 <style>
-  .logo {
-    display: inline-block;
+  .icon {
     width: var(--wt-tab-logo-size);
     height: var(--wt-tab-logo-size);
   }
-  :global(.tabs > .logo > svg) {
+  :global(.tabs > .icon > svg) {
     width: 100%;
     height: 100%;
   }

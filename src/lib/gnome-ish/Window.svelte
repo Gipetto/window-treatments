@@ -92,9 +92,6 @@
   aria-label={ariaLabel}
 >
   <header>
-    {#if controls}
-      <Controls />
-    {/if}
     <nav
       role="application"
       ondragover={tabStore.sortable ? handleDragOver : undefined}
@@ -110,6 +107,9 @@
         aria-multiselectable="false"
         onkeydown={handleKeyDown}
       >
+        {#if controls}
+          <Controls />
+        {/if}
         <Tab
           icon="php"
           forId="php"
@@ -131,7 +131,6 @@
         >
           index.html
         </Tab>
-        <div class="space" role="none" tabindex="-1"></div>
       </div>
     </nav>
   </header>
@@ -226,22 +225,13 @@ console.info(foo)
 
       nav {
         width: 100%;
-        display: flex;
-        flex-direction: row;
       }
 
       .tabs {
         display: flex;
         flex-direction: row;
-        width: 100%;
         background-color: var(--wt-color-header-bg);
         overflow: hidden;
-
-        & > :last-child {
-          flex-grow: 2;
-          background-color: var(--wt-color-header-bg);
-          border-end-start-radius: var(--wt-border-radius-inner);
-        }
       }
     }
   }
