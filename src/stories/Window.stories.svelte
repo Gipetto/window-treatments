@@ -1,10 +1,10 @@
 <script module lang="ts">
   import { defineMeta } from "@storybook/addon-svelte-csf"
-  import Window from "$lib/gnome-ish/Window.svelte"
+  import Window from "$lib/modern/Window.svelte"
 
   const { Story } = defineMeta({
     component: Window,
-    title: "Gnome-Ish/Window",
+    title: "Modern/Window",
     argTypes: {
       activeTab: {
         control: "select",
