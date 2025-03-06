@@ -129,7 +129,7 @@
     "aliases": ["ps1"]
   },  
   "python": {
-    "name": "PowerShell",
+    "name": "Python",
     "set": "cib",
     "icon": "python",
     "aliases": ["py"]
