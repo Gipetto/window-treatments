@@ -51,7 +51,7 @@
     width: var(--wt-tab-logo-size);
     height: var(--wt-tab-logo-size);
   }
-  :global(.logo > svg) {
+  :global(.tabs > .logo > svg) {
     width: 100%;
     height: 100%;
   }

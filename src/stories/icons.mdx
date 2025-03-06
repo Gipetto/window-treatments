@@ -1,0 +1,92 @@
+import { Meta } from "@storybook/blocks"
+import icons from "../lib/icons/icons.json"
+
+
+
+export const SVGPreview = ({data}) => {
+  return(
+    <div class="icon-box">
+      <span class="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox={`0 0 ${data[1].width} ${data[1].height}`}
+          fill="none"
+          dangerouslySetInnerHTML={{ __html: data[1].body }}></svg>
+      </span>
+      <h2>{data[1].name}</h2>
+      <p class="key"><strong>Key:</strong> {data[0]}</p>
+      <p class="aliases"><strong>Aliases:</strong> {data[1].aliases?.join(", ") || "[none]"}</p>
+    </div>
+  )
+}
+
+<Meta title="Included Icons" />
+
+<div>
+  # Included Icons
+
+  <div class="icons">
+    {
+      Object.entries(icons)
+        .filter((item) => {
+          return !("alias" in item[1])
+        })
+        .map((item) => {
+          return <SVGPreview data={item} />
+        })
+    }
+  </div>
+</div>
+
+<style>
+{`
+  .icons {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+    grid-auto-rows: min-content;
+    container-type: inline-size;
+  }
+
+  .icon-box {
+    padding: 1rem 1rem 0 1rem;
+    border: 1px solid lightgray;
+    border-radius: 0.5rem;
+    border-width: 3px 1px;
+  }
+
+  .icon-box:hover {
+    border-color: gray;
+  }
+
+  .icon-box h2 {
+    margin-top: 1rem !important;
+  }
+
+  .icon-box .key {
+    margin-bottom: 0.25rem;
+  }
+
+  .icon-box .aliases {
+    margin-top: 0;
+    line-height: 1.2rem;
+  }
+
+  .icon-box .icon {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+  }
+
+  .icon-box .icon > svg {
+    width: 100%;
+    height: 100%;
+    color: #404040;
+  }
+
+  .icon-box:hover .icon > svg {
+    color: black;
+  }
+`}
+</style>

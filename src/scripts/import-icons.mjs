@@ -38,6 +38,12 @@ const iconsToLoad = Object.entries(iconsSrc).reduce((acc, data) => {
   icon2Prefix: {}
 })
 
+// Clear out previous data
+await fs.rm(outDir, {
+  recursive: true,
+  force: true
+})
+
 for (const prefix of Object.keys(iconsToLoad.prefixes)) {
   const data = JSON.parse(
     await fs.readFile(
@@ -73,19 +79,10 @@ for (const prefix of Object.keys(iconsToLoad.prefixes)) {
           alias: name
         }
       })
-
-      // save that precious 1kb ;)
-      delete icons[key].aliases
     }
   })
 
   const setOutDir = path.join(outDir, prefix)
-
-  // Clear out previous data
-  await fs.rm(setOutDir, {
-    recursive: true,
-    force: true
-  })
 
   // Export
   console.info(`Exporting ${iconSet.info.name} SVGs`)

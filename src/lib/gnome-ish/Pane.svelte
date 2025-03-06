@@ -15,6 +15,8 @@
     active = false,
     children
   }: Props = $props()
+  // const childs = $derived(Object.values(children).filter(f => typeof f === 'function'));
+  console.log(children)
 </script>
 <div
   id={`${tabStore.appName}-panels-${id}`}

@@ -21,7 +21,22 @@
     "name": "Markup",
     "set": "garden",
     "icon": "markup-stroke-12",
-    "aliases": ["markup", "xml", "latex", "basic", "logo", "cobol", "caml", "ocaml", "r", "objective-c", "objectivec", "tcl"]
+    "aliases": [
+      "markup", 
+      "xml", 
+      "latex", 
+      "basic", 
+      "logo", 
+      "cobol", 
+      "caml", 
+      "ocaml", 
+      "r", 
+      "objective-c", 
+      "objectivec", 
+      "tcl",
+      "atom",
+      "rss"
+    ]
   },
   "coffeescript": {
     "name": "CoffeeScript",
@@ -96,7 +111,7 @@
     "aliases": ["md"]
   },
   "perl": {
-    "name": "PHP",
+    "name": "Perl",
     "set": "simple-icons",
     "icon": "perl",
     "aliases": ["pl"]
@@ -151,14 +166,14 @@
   },
   "shell": {
     "name": "Shell",
-    "set": "qlementine-icons",
-    "icon": "file-script-16",
+    "set": "mdi",
+    "icon": "bash",
     "aliases": ["bash", "zsh", "script", "fish", "csh"]
   },
   "sql": {
     "name": "SQL",
-    "set": "gravity-ui",
-    "icon": "abbr-sql",
+    "set": "hugeicons",
+    "icon": "sql",
     "aliases": ["mysql", "postgresql", "sqlite"]
   },
   "svelte": {
@@ -172,6 +187,17 @@
     "set": "devicon-plain",
     "icon": "swift",
     "aliases": []
+  },
+  "template": {
+    "name": "Templates",
+    "set": "tabler",
+    "icon": "braces",
+    "aliases": [
+      "handlebars",
+      "mustache",
+      "jinja",
+      "twig"
+    ]
   },
   "typescript": {
     "name": "Typescript",

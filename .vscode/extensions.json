@@ -3,5 +3,6 @@
     "svelte.svelte-vscode",
     "dbaeumer.vscode-eslint",
     "github.vscode-github-actions",
+    "unifiedjs.vscode-mdx",
   ]
 }
