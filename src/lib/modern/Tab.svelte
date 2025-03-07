@@ -18,7 +18,7 @@
     children: Snippet
   }
 
-  let {
+  const {
     forId,
     icon,
     onclick = () => {},

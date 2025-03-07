@@ -4,24 +4,25 @@
 
   const tabStore = getActiveTabContext()
 
+
   interface Props {
     id?: string
-    active?: boolean
     children?: Snippet
   }
 
   const {
     id,
-    active = false,
     children
   }: Props = $props()
+  const isActive = $derived(tabStore.is(id))
+
 </script>
 <div
   id={`${tabStore.appName}-panels-${id}`}
   class="code"
-  class:active={active}
+  class:active={isActive}
   role="tabpanel"
-  hidden={!active}
+  hidden={!isActive}
   tabIndex={0}
 ><div>
   <code>
